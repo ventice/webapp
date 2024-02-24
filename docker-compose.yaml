@@ -1,0 +1,31 @@
+version: '3'
+services:
+  web:
+    build: .
+    working_dir: /usr/src/app/webapp
+    command: gunicorn --workers 3 webapp.asgi:application -k uvicorn.workers.UvicornWorker -b :8000
+    hostname: webs
+    ports:
+      - '8000:8000'
+    environment:
+      - DJANGO_SETTINGS_MODULE=webapp.settings
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - net
+    volumes:
+      - C:\work\Python\django\webapp:/usr/src/app
+  db:
+    image: postgres
+    hostname: dbs
+    networks:
+      - net
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+networks:
+  net:
