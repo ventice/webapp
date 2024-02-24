@@ -15,7 +15,7 @@ services:
     networks:
       - net
     volumes:
-      - C:\work\Python\django\webapp:/usr/src/app
+      - .:/usr/src/app
   db:
     image: postgres
     hostname: dbs
